@@ -71,7 +71,7 @@ pipeline {
                 }
             }
             
-            stage( 'Update to AKS repo') {
+          /*  stage( 'Update to AKS repo') {
                 steps {
                     sh '''
                         cd CD/
@@ -84,6 +84,6 @@ pipeline {
                          git push -u origin '''
                     
                 }
-            } 
+            } */
         }
 }
