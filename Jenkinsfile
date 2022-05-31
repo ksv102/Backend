@@ -74,11 +74,11 @@ pipeline {
             stage( 'Update to AKS repo') {
                 steps {
                     sh '''
-                        cd CD/
+                        cd test/
                          git branch
                          rm -rf deployment.yml
-                         cp -r /opt/k8s_deploy/deployment.yml ${WORKSPACE}/CD/
-                         sed -i "s|LATESTVERSION|$registryUrl/hello:${BUILD_NUMBER}|g" ${WORKSPACE}/CD/deployment.yml
+                         cp -r /opt/k8s_deploy/deployment.yml ${WORKSPACE}/test/
+                         sed -i "s|LATESTVERSION|$registryUrl/hello:${BUILD_NUMBER}|g" ${WORKSPACE}/test/deployment.yml
                          git add deployment.yml
                          git commit -m "Build_number"
                          git push -u origin '''
