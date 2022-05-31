@@ -60,12 +60,12 @@ pipeline {
             stage( 'Login to AKS repo') {
                 steps {
                         sh 'rm -rf *'
-                     withCredentials([usernamePassword(credentialsId: 'test-tken-v', passwordVariable: 'password', usernameVariable: 'username')]) {
-                      //git remote set-url origin https://venkateshmuddusetty:${password}@github.com/venkateshmuddusetty/test.git
+                     withCredentials([usernamePassword(credentialsId: 'Argocd', passwordVariable: 'Argopwd', usernameVariable: 'Argocd')]) {
+                      //git remote set-url origin https://ksv102:${Argocd}@github.com/ksv102/CD.git
                          sh '''  
-                         git config --global user.name "${username}"
-                         git config --global user.email "venkat149dev@gmail.com"
-                         git clone https://${password}@github.com/venkateshmuddusetty/test.git
+                         git config --global user.name "${Argocd}"
+                         git config --global user.email "kssarma33@gmail.com"
+                         git clone https://${Argopwd}@github.com/ksv102/CD.git
                           '''
                      } 
                 }
@@ -74,11 +74,11 @@ pipeline {
             stage( 'Update to AKS repo') {
                 steps {
                     sh '''
-                        cd test/
+                        cd CD/
                          git branch
                          rm -rf deployment.yml
-                         cp -r /opt/k8s_deploy/deployment.yml ${WORKSPACE}/test/
-                         sed -i "s|LATESTVERSION|$registryUrl/hello:${BUILD_NUMBER}|g" ${WORKSPACE}/test/deployment.yml
+                         cp -r /opt/k8s_deploy/deployment.yml ${WORKSPACE}/CD/
+                         sed -i "s|LATESTVERSION|$registryUrl/hello:${BUILD_NUMBER}|g" ${WORKSPACE}/CD/deployment.yml
                          git add deployment.yml
                          git commit -m "Build_number"
                          git push -u origin '''
